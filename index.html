@@ -625,6 +625,7 @@ async function loadCloudData() {
     CLOUD_PRICE = (priceData && typeof priceData === 'object') ? priceData : { price: 0, season: '' };
     // Also refresh reviews from the same bin
     if (priceData && Array.isArray(priceData.reviews)) {
+      // Seulement reviews approuvées — jamais reviews_pending
       REVIEWS_DATA = priceData.reviews;
       renderReviews();
     }
@@ -865,9 +866,14 @@ async function loadReviews() {
     });
     if (!res.ok) return;
     var data = await res.json();
+    // Seulement les reviews approuvées par l'admin
     REVIEWS_DATA = (data.record && Array.isArray(data.record.reviews)) ? data.record.reviews : [];
     renderReviews();
-  } catch(e) { console.error('Reviews load error:', e); }
+  } catch(e) { 
+    console.error('Reviews load error:', e); 
+    REVIEWS_DATA = [];
+    renderReviews();
+  }
 }
 
 async function saveReviews(newReview) {
