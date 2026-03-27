@@ -51,12 +51,12 @@
     @keyframes scroll-down { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform: scaleY(1); transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
 
     /* ── INTRO ── */
-    .intro { display: grid; grid-template-columns: 1fr 1fr; min-height: 80vh; align-items: stretch; }
+    .intro { display: grid; grid-template-columns: 1fr 1fr; min-height: 80vh; align-items: stretch; } .intro-image { min-height: 500px; }
     .intro-text { background: var(--green); padding: 8rem 5rem; display: flex; flex-direction: column; justify-content: center; }
     .section-label { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; font-weight: 400; }
     .intro-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 3.5vw, 3.2rem); font-weight: 300; color: #fff; line-height: 1.2; margin-bottom: 2rem; }
     .intro-body { font-size: 0.95rem; line-height: 1.9; color: rgba(255,255,255,0.65); font-weight: 300; max-width: 420px; }
-    .intro-image { background: #2C1F15; position: relative; overflow: hidden; min-height: 600px; height: 600px; }
+    .intro-image { background: #1a1410; position: relative; overflow: hidden; height: 100%; min-height: 500px; }
     .ornament { display: flex; align-items: center; gap: 1rem; margin: 2.5rem 0; }
     .ornament-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--gold)); max-width: 60px; }
     .ornament-diamond { width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); }
@@ -125,7 +125,7 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 1024px) { .amenities-inner { grid-template-columns: 1fr; gap: 3rem; } .amenities-grid { grid-template-columns: repeat(2, 1fr); } .contact-inner { grid-template-columns: 1fr; gap: 3rem; } }
-    @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .nav-links { display: none; } .intro { grid-template-columns: 1fr; } .intro-image { height: 350px !important; min-height: 350px !important; } .intro-text { padding: 4rem 1.5rem; } .chambres { padding: 4rem 1rem; } .amenities { padding: 4rem 1.5rem; } .amenities-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; } .experience { padding: 4rem 1.5rem; } .features-row { grid-template-columns: repeat(2, 1fr); } .contact { padding: 4rem 1.5rem; } .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; } .form-row { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2rem 1.5rem; } #location, #temples { padding: 4rem 1.5rem !important; } }
+    @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .nav-links { display: none; } .intro { grid-template-columns: 1fr; } .intro-image { height: 400px !important; min-height: 400px !important; } .intro-text { padding: 4rem 1.5rem; } .chambres { padding: 4rem 1rem; } .amenities { padding: 4rem 1.5rem; } .amenities-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; } .experience { padding: 4rem 1.5rem; } .features-row { grid-template-columns: repeat(2, 1fr); } .contact { padding: 4rem 1.5rem; } .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; } .form-row { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2rem 1.5rem; } #location, #temples { padding: 4rem 1.5rem !important; } }
     @media (max-width: 480px) { .hero-title { font-size: 2.4rem; } .amenities-grid { grid-template-columns: 1fr; } .features-row { grid-template-columns: 1fr 1fr; } #location, #temples { padding: 3rem 1rem !important; } }
     .form-group input[type="date"] { -webkit-appearance: none; appearance: none; }
     input[type="date"]::-webkit-datetime-edit-fields-wrapper { direction: ltr; }
