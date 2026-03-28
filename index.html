@@ -56,7 +56,7 @@
     .section-label { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; font-weight: 400; }
     .intro-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 3.5vw, 3.2rem); font-weight: 300; color: #fff; line-height: 1.2; margin-bottom: 2rem; }
     .intro-body { font-size: 0.95rem; line-height: 1.9; color: rgba(255,255,255,0.65); font-weight: 300; max-width: 420px; }
-    .intro-image { background: #1a1410; position: relative; overflow: hidden; height: 550px; min-height: 550px; display: block; }
+    .intro-image { background: #1a1410; position: relative; overflow: hidden; height: 550px; min-height: 550px; }
     .ornament { display: flex; align-items: center; gap: 1rem; margin: 2.5rem 0; }
     .ornament-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--gold)); max-width: 60px; }
     .ornament-diamond { width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); }
@@ -125,7 +125,7 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 1024px) { .amenities-inner { grid-template-columns: 1fr; gap: 3rem; } .amenities-grid { grid-template-columns: repeat(2, 1fr); } .contact-inner { grid-template-columns: 1fr; gap: 3rem; } }
-    @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .nav-links { display: none; } .intro { grid-template-columns: 1fr; } .intro-image { height: 320px !important; min-height: 320px !important; display: block !important; } #media-slide { height: 320px !important; display: block !important; } .intro-text { padding: 4rem 1.5rem; } .chambres { padding: 4rem 1rem; } .amenities { padding: 4rem 1.5rem; } .amenities-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; } .experience { padding: 4rem 1.5rem; } .features-row { grid-template-columns: repeat(2, 1fr); } .contact { padding: 4rem 1.5rem; } .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; } .form-row { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2rem 1.5rem; } #location, #temples { padding: 4rem 1.5rem !important; } }
+    @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .nav-links { display: none; } .intro { grid-template-columns: 1fr; } .intro-image { height: 400px !important; min-height: 400px !important; } .intro-text { padding: 4rem 1.5rem; } .chambres { padding: 4rem 1rem; } .amenities { padding: 4rem 1.5rem; } .amenities-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; } .experience { padding: 4rem 1.5rem; } .features-row { grid-template-columns: repeat(2, 1fr); } .contact { padding: 4rem 1.5rem; } .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; } .form-row { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2rem 1.5rem; } #location, #temples { padding: 4rem 1.5rem !important; } }
     @media (max-width: 480px) { .hero-title { font-size: 2.4rem; } .amenities-grid { grid-template-columns: 1fr; } .features-row { grid-template-columns: 1fr 1fr; } #location, #temples { padding: 3rem 1rem !important; } }
     .form-group input[type="date"] { -webkit-appearance: none; appearance: none; }
     input[type="date"]::-webkit-datetime-edit-fields-wrapper { direction: ltr; }
@@ -239,7 +239,7 @@
     ═══════════════════════════════════════════════════════════════════════ -->
 
     <!-- Slide actif -->
-    <div id="media-slide" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;display:block;"></div>
+    <div id="media-slide" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;"></div>
 
     <!-- Flèches navigation -->
     <button onclick="mediaMove(-1)" style="position:absolute;top:50%;left:0.8rem;transform:translateY(-50%);background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.3);color:#fff;width:42px;height:42px;font-size:1.2rem;cursor:pointer;z-index:10;transition:background 0.3s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--dark)'" onmouseout="this.style.background='rgba(0,0,0,0.5)';this.style.color='#fff'">&#8592;</button>
@@ -1057,9 +1057,9 @@ function renderMediaSlide() {
   var item = MEDIA_ITEMS[mediaIndex];
 
   if (item.type === 'photo') {
-    slide.innerHTML = '<img src="' + item.src + '" alt="' + item.label + '" style="width:100%;height:100%;min-height:300px;object-fit:cover;object-position:center top;display:block;"/>';
+    slide.innerHTML = '<img src="' + item.src + '" alt="' + item.label + '" style="width:100%;height:550px;object-fit:cover;object-position:center top;display:block;"/>';
   } else {
-    slide.innerHTML = '<iframe src="' + item.src + '" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="width:100%;height:100%;min-height:300px;display:block;border:0;"></iframe>';
+    slide.innerHTML = '<iframe src="' + item.src + '" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="width:100%;height:550px;display:block;border:0;"></iframe>';
   }
 
   // Counter
