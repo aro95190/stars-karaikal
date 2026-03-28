@@ -56,7 +56,7 @@
     .section-label { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; font-weight: 400; }
     .intro-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 3.5vw, 3.2rem); font-weight: 300; color: #fff; line-height: 1.2; margin-bottom: 2rem; }
     .intro-body { font-size: 0.95rem; line-height: 1.9; color: rgba(255,255,255,0.65); font-weight: 300; max-width: 420px; }
-    .intro-image { background: #1a1410; position: relative; overflow: hidden; height: 100%; min-height: 500px; }
+    .intro-image { background: #1a1410; position: relative; overflow: hidden; height: 550px; min-height: 550px; }
     .ornament { display: flex; align-items: center; gap: 1rem; margin: 2.5rem 0; }
     .ornament-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--gold)); max-width: 60px; }
     .ornament-diamond { width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); }
@@ -239,7 +239,7 @@
     ═══════════════════════════════════════════════════════════════════════ -->
 
     <!-- Slide actif -->
-    <div id="media-slide" style="position:absolute;top:0;left:0;width:100%;height:100%;"></div>
+    <div id="media-slide" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;"></div>
 
     <!-- Flèches navigation -->
     <button onclick="mediaMove(-1)" style="position:absolute;top:50%;left:0.8rem;transform:translateY(-50%);background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.3);color:#fff;width:42px;height:42px;font-size:1.2rem;cursor:pointer;z-index:10;transition:background 0.3s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--dark)'" onmouseout="this.style.background='rgba(0,0,0,0.5)';this.style.color='#fff'">&#8592;</button>
@@ -623,12 +623,9 @@ async function loadCloudData() {
     ]);
     CLOUD_RESERVATIONS = Array.isArray(resData) ? resData.filter(r => r.status !== 'Cancelled').map(r => ({ room: r.room, checkin: r.checkin, checkout: r.checkout })) : [];
     CLOUD_PRICE = (priceData && typeof priceData === 'object') ? priceData : { price: 0, season: '' };
-    // Also refresh reviews from the same bin
-    if (priceData && Array.isArray(priceData.reviews)) {
-      // Seulement reviews approuvées — jamais reviews_pending
-      REVIEWS_DATA = priceData.reviews;
-      renderReviews();
-    }
+    // Reviews approuvees depuis le bin price
+    REVIEWS_DATA = (priceData && typeof priceData === 'object' && Array.isArray(priceData.reviews)) ? priceData.reviews : [];
+    renderReviews();
     refreshPriceBanner();
     // Re-check availability if dates already selected
     const ci = document.getElementById('checkin').value;
@@ -866,13 +863,12 @@ async function loadReviews() {
     });
     if (!res.ok) return;
     var data = await res.json();
-    // Seulement les reviews approuvées par l'admin
-    REVIEWS_DATA = (data.record && Array.isArray(data.record.reviews)) ? data.record.reviews : [];
+    var record = data.record || {};
+    // IMPORTANT: lire uniquement 'reviews' (approuvees) jamais 'reviews_pending'
+    REVIEWS_DATA = Array.isArray(record.reviews) ? record.reviews : [];
     renderReviews();
-  } catch(e) { 
-    console.error('Reviews load error:', e); 
-    REVIEWS_DATA = [];
-    renderReviews();
+  } catch(e) {
+    console.error('loadReviews error:', e);
   }
 }
 
@@ -1021,9 +1017,9 @@ async function submitReview() {
 // Init after DOM ready
 document.addEventListener('DOMContentLoaded', function() {
   initStarPicker();
-  setTimeout(loadReviews, 2000);
-  // Retry after 8 seconds in case cloud was still loading
-  setTimeout(loadReviews, 8000);
+  // loadReviews appele via loadCloudData automatiquement
+  // Appel supplementaire apres 3s au cas ou
+  setTimeout(loadReviews, 3000);
 });
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -1056,9 +1052,9 @@ function renderMediaSlide() {
   var item = MEDIA_ITEMS[mediaIndex];
 
   if (item.type === 'photo') {
-    slide.innerHTML = '<img src="' + item.src + '" alt="' + item.label + '" style="width:100%;height:100%;object-fit:cover;display:block;min-height:600px;"/>';
+    slide.innerHTML = '<img src="' + item.src + '" alt="' + item.label + '" style="width:100%;height:550px;object-fit:cover;object-position:center top;display:block;"/>';
   } else {
-    slide.innerHTML = '<iframe src="' + item.src + '" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="width:100%;height:100%;min-height:600px;display:block;border:0;"></iframe>';
+    slide.innerHTML = '<iframe src="' + item.src + '" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="width:100%;height:550px;display:block;border:0;"></iframe>';
   }
 
   // Counter
